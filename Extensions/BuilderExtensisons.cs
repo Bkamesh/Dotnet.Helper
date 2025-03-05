@@ -28,7 +28,8 @@ public static class BuilderExtensions
             options.UseSqlServer(ConnectionString, options => 
             {
                 options.UseQuerySplittingBehavior(QuerySplittingBehavior.SingleQuery);
-            }).UseSnakeCaseNamingConvention();
+            })
+            .UseSnakeCaseNamingConvention();
 
         });
     }
@@ -40,7 +41,8 @@ public static class BuilderExtensions
             options.UseNpgsql(connectionString, npgsqlOptions =>
             {
                 npgsqlOptions.UseQuerySplittingBehavior(QuerySplittingBehavior.SingleQuery);
-            }).UseSnakeCaseNamingConvention();
+            })
+            .UseSnakeCaseNamingConvention();
         });
     }
 

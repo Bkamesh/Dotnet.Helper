@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("dotnet.helper")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+858e88139916956a2e0d1fdd8975426839ba1a8d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d4f21ff0a21f8e6956dd7e2482e2f7352fcbdcc0")]
 [assembly: System.Reflection.AssemblyProductAttribute("dotnet.helper")]
 [assembly: System.Reflection.AssemblyTitleAttribute("dotnet.helper")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

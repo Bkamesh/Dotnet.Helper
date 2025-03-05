@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.Extensions.Hosting;
+using Prometheus;
 
 namespace dotnet.helper.Extensions;
 
@@ -27,6 +29,25 @@ public static class ApplicationExtensions
             app.UseSwagger();
             app.UseSwaggerUI();
         }
+    }
+
+    public static void UsePrometheusMontoring(this IApplicationBuilder app)
+    {
+       app.UseHttpMetrics();
+       app.UseMetricServer();
+    }
+
+    public static void UseHealthCheck(this IApplicationBuilder app)
+    {
+        app.UseHealthChecks("/health/live", new HealthCheckOptions
+        {
+            Predicate = check => check.Tags.Contains("liveness")
+        });
+
+        app.UseHealthChecks("/health/ready", new HealthCheckOptions
+        {
+            Predicate = check => check.Tags.Contains("readiness")
+        });
     }
 
 }
