@@ -17,14 +17,14 @@ public static class ApplicationExtensions
        });
     }
 
-    public static void UseCustomCores(this IApplicationBuilder app, string CorsPolicyName)
+    public static void UseCustomCors(this IApplicationBuilder app, string CorsPolicyName)
     {
         app.UseCors(CorsPolicyName);
     }
     
     public static void AddSwagger(this IApplicationBuilder app, IWebHostEnvironment env)
     {
-        if (!env.IsProduction())
+        if (env.IsDevelopment())
         {
             app.UseSwagger();
             app.UseSwaggerUI();

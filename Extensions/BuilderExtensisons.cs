@@ -34,9 +34,9 @@ public static class BuilderExtensions
         });
     }
 
-    public static void AddPostgresDbContext<T>(this WebApplicationBuilder builder, string connectionString) where T : DbContext
+    public static void AddPostgresDbContext<T>(this IServiceCollection services, string connectionString) where T : DbContext
     {
-        builder.Services.AddDbContext<T>(options =>
+        services.AddDbContext<T>(options =>
         {
             options.UseNpgsql(connectionString, npgsqlOptions =>
             {
@@ -69,31 +69,31 @@ public static class BuilderExtensions
                 .CreateLogger());
    }
 
-   public static void AddRedinessAndLivenessCheck(this WebApplicationBuilder builder)
+   public static void AddRedinessAndLivenessCheck(this IServiceCollection services)
    {
     
-     builder.Services.AddHealthChecks()
+     services.AddHealthChecks()
         .AddCheck("Liveness", () => HealthCheckResult.Healthy(), tags: new[] { "liveness" })
         .AddCheck("Readiness", () => HealthCheckResult.Healthy(), tags: new[] { "readiness" });
    }
 
-   public static void AddPrometheusMonitoring(this WebApplicationBuilder builder)
+   public static void AddPrometheusMonitoring(this IServiceCollection services)
    {
-        builder.Services.UseHttpClientMetrics();
+        services.UseHttpClientMetrics();
    }
 
-    public static void RegisterApplication(this WebApplicationBuilder builder, Dictionary<Type, Type> applications)
+    public static void RegisterApplication(this IServiceCollection services, Dictionary<Type, Type> applications)
     {
         foreach (var application in applications)
         {
-            builder.Services.AddSingleton(application.Key, application.Value);
+            services.AddSingleton(application.Key, application.Value);
         }
     }
 
-    public static void CustomCorsOrigin(this WebApplicationBuilder builder,string CorsPolicyName)
+    public static void CustomCorsOrigin(this IServiceCollection services,string CorsPolicyName, IConfiguration configuration)
     {
-        var Origins = builder.Configuration.GetValue<string>("Cors:Origins")?.Split(';') ?? new string[] { "" };
-        builder.Services.AddCors(options =>
+        var Origins = configuration.GetValue<string>("CorsOrigins")?.Split(';') ?? new string[] { "" };
+        services.AddCors(options =>
         {
             options.AddPolicy(CorsPolicyName, builder => builder
                 .WithOrigins(Origins)
