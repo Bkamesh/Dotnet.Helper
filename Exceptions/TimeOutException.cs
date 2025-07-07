@@ -1,4 +1,4 @@
-namespace dotnet.helper
+namespace dotnet.helper.Exceptions
 {
     public class TimeoutException : Exception
     {

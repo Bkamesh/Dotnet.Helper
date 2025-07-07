@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.Extensions.Hosting;
 using Prometheus;
 
-namespace dotnet.helper.Extensions;
+namespace dotnet.helper.ApplicationExtensions;
 
 public static class ApplicationExtensions
 {

@@ -7,7 +7,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Prometheus;
 
-namespace dotnet.helper.Extensions;
+namespace dotnet.helper.BuilderExtensions;
 
 public static class BuilderExtensions
 {
@@ -69,12 +69,13 @@ public static class BuilderExtensions
                 .CreateLogger());
    }
 
-   public static void AddRedinessAndLivenessCheck(this IServiceCollection services)
+   public static void AddRedinessAndLivenessCheck(this IServiceCollection services,string connectionString = null)
    {
-    
-     services.AddHealthChecks()
-        .AddCheck("Liveness", () => HealthCheckResult.Healthy(), tags: new[] { "liveness" })
-        .AddCheck("Readiness", () => HealthCheckResult.Healthy(), tags: new[] { "readiness" });
+
+        services.AddHealthChecks()
+           .AddCheck("Liveness", () => HealthCheckResult.Healthy(), tags: new[] { "liveness" })
+           .AddCheck("Readiness", () => HealthCheckResult.Healthy(), tags: new[] { "readiness" });
+
    }
 
    public static void AddPrometheusMonitoring(this IServiceCollection services)
