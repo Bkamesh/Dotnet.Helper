@@ -71,5 +71,48 @@ if (data == null)
 
 services.AddRedisHelper(configuration);
 ```
+### 📦 Create NuGet Package (`.nupkg`)
+
+Ensure your `dotnet.helper.csproj` includes:
+
+```xml
+<PropertyGroup>
+  <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  <PackageId>Dotnet.Helper</PackageId>
+  <Version>1.0.0</Version>
+  <Authors>YourName</Authors>
+  <Description>Helper utilities for .NET projects</Description>
+  <TargetFramework>net8.0</TargetFramework>
+</PropertyGroup>
+```
+
+Build the NuGet package:
+
+```bash
+dotnet pack -c Release -o ./dotnet.helper.nupkg
+```
+
+---
+
+### 📤 Publish to GitHub Packages
+
+#### 1. Add GitHub NuGet Source
+
+```bash
+dotnet nuget add source \
+  --username <your-username> \
+  --password <your-personal-access-token> \
+  --store-password-in-clear-text \
+  --name github \
+  "https://nuget.pkg.github.com/<your-username>/index.json"
+```
+
+> Replace `<your-username>` and `<your-personal-access-token>` (with `write:packages` + `repo` scopes).
+
+#### 2. Push the `.nupkg` to GitHub Packages
+
+```bash
+dotnet nuget push ./dotnet.helper.nupkg/*.nupkg -s github
+```
 
 ---
